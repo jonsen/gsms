@@ -16,9 +16,7 @@ type (
 		SetGeteway(geteway string)
 	}
 
-	SmsTemplateParam struct {
-		Code string `form:"code" json:"code"`
-	}
+	SmsTemplateParam map[string]string
 
 	SmsResult struct {
 		Code      int32  `form:"err_code" json:"err_code"`

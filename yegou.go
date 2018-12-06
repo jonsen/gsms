@@ -131,7 +131,7 @@ func (s *yegouSms) SetTemplateCode(templateCode string) {
  * 设置模版参数
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 func (s *yegouSms) SetTemplateParam(templateParam SmsTemplateParam) {
-	s.Params = []string{templateParam.Code}
+	s.Params = []string{templateParam["code"]}
 }
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
