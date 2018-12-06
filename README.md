@@ -47,6 +47,7 @@ Alidayun Sms Example:
 
     import (
         "github.com/jonsen/gsms"
+        "fmt"
     )
 
     var smsProvider *gsms.SmsProvider
