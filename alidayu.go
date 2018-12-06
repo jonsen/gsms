@@ -96,11 +96,11 @@ func (s *alidayuSms) Send(mobiles string) (*SmsResult, error) {
 	result.IsSuccess = false
 
 	if len(mobiles) == 0 {
-		return result, errors.New("手机号不能为空")
+		return result, errors.New("empty mobiles")
 	}
 
 	if len(s.SmsTemplateCode) == 0 || len(s.SmsParam) == 0 || len(s.SmsFreeSignName) == 0 {
-		return nil, errors.New("参数不正确")
+		return nil, errors.New("params error")
 	}
 
 	//接收手机号码

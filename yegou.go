@@ -71,11 +71,11 @@ func (s *yegouSms) Send(mobile string) (*SmsResult, error) {
 	result := new(SmsResult)
 
 	if len(mobile) == 0 {
-		return result, errors.New("手机号不能为空")
+		return result, errors.New("empty mobiles")
 	}
 
 	if len(s.TemplateId) == 0 {
-		return nil, errors.New("参数不正确")
+		return nil, errors.New("params error")
 	}
 
 	//接收手机号码

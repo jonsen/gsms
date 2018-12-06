@@ -82,11 +82,11 @@ func (s *aliyunSms) Send(mobiles string) (*SmsResult, error) {
 	result.IsSuccess = false
 
 	if len(mobiles) == 0 {
-		return result, errors.New("argument error")
+		return result, errors.New("empty mobiles")
 	}
 
 	if len(s.TemplateCode) == 0 || len(s.ParamString) == 0 || len(s.SignName) == 0 {
-		return result, errors.New("参数不正确")
+		return result, errors.New("params error")
 	}
 
 	//接收手机号码
