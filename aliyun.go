@@ -38,6 +38,9 @@ type (
 		Timestamp        string `form:"Timestamp" json:"Timestamp"`               //请求的时间戳。日期格式按照ISO8601标准表示，并需要使用UTC时间。格式为YYYY-MM-DDThh:mm:ssZ 例如，2015-11-23T04:00:00Z（为北京时间2015年11月23日12点0分0秒）
 		Version          string `form:"Version" json:"Version"`                   //API版本号，为日期形式：YYYY-MM-DD，本版本对应为2016-09-27
 	}
+
+	ALIResult struct {
+	}
 )
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -101,13 +104,26 @@ func (s *aliyunSms) Send(mobiles string) (*SmsResult, error) {
 	log.Printf("params: %s", params)
 
 	//发送Http请求
-	if response, err := glib.HttpPost(s.Geteway, params); err != nil {
+	response, err := glib.HttpPost(s.Geteway, params)
+	if err != nil {
 		log.Printf("aliyun sms send err %v", err)
+		result.Message = err.Error()
 		return result, err
-	} else {
-		result.IsSuccess = true
-		log.Printf("aliyun sms send response %s", response)
 	}
+
+	var tmp map[string]string
+	err = glib.FromJson(string(response), &tmp)
+	if err != nil {
+		result.Message = err.Error()
+		return result, err
+	}
+
+	result.IsSuccess = true
+	result.Code = tmp["Code"]
+	result.Message = tmp["Message"]
+	result.RequestId = tmp["RequestId"]
+
+	log.Printf("aliyun sms send response %s", response, tmp)
 
 	return result, nil
 }
